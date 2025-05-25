@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Client</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="dashboard">
+
+    <!-- BARRE LATÉRALE -->
+    <div class="sidebar">
+        <img src="/images/logo-1.png" class="logo" alt="Logo Bankati">
+        <h2>Client - Bankati</h2>
+
+        <!-- PHOTO DE PROFIL (si disponible) -->
+        <div class="profil-container" th:if="${user.photo != null}">
+            <img th:src="@{'/images/profil/' + ${user.photo}}" alt="Photo de profil" class="profil-pic" />
+            <p class="profil-name" th:text="${user.nom}">Nom</p>
+        </div>
+
+        <!-- BOUTONS DE NAVIGATION -->
+        <div class="sidebar-buttons">
+            <a href="/client/dashboard" class="sidebar-btn">Tableau de bord</a>
+            <a href="/client/compte" class="sidebar-btn">Mon compte</a>
+            <a href="/client/demandes" class="sidebar-btn">Mes demandes</a>
+            <a href="/client/demandes/ajouter" class="sidebar-btn">Nouvelle demande</a>
+            <a href="/login" class="sidebar-btn logout">Déconnexion</a>
+        </div>
+    </div>
+
+    <!-- CONTENU PRINCIPAL -->
+    <div class="content">
+        <h1>Bienvenue <span th:text="${user.nom}">Client</span> 👋</h1>
+        <p>Voici votre espace personnel sécurisé sur la plateforme Bankati.</p>
+
+        <!-- Tu peux ajouter ici les infos comme solde, nb de demandes, etc. -->
+        <div class="dashboard-cards">
+            <div class="card">
+                <h3>💳 Compte</h3>
+                <p th:if="${compte != null}">
+                    Solde : <strong th:text="${compte.solde}">0</strong> <span th:text="${compte.devise}">MAD</span>
+                </p>
+                <p th:if="${compte == null}" style="color: darkred;">Aucun compte encore associé</p>
+            </div>
+
+            <div class="card">
+                <h3>📄 Mes Demandes</h3>
+                <p>Total : <strong th:text="${nbDemandes}">0</strong></p>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

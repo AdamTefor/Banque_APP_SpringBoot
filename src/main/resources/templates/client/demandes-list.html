@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mes Demandes de Crédit</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="dashboard">
+    <div class="sidebar">
+        <img src="/images/logo-1.png" class="logo" alt="Bankati Logo">
+        <h2>Client - Bankati</h2>
+        <div class="sidebar-buttons">
+            <a href="/client/dashboard" class="sidebar-btn">Dashboard</a>
+            <a href="/client/compte" class="sidebar-btn">Mon Compte</a>
+            <a href="/client/demandes" class="sidebar-btn">Mes Demandes</a>
+            <a href="/client/demandes/ajouter" class="sidebar-btn">Nouvelle Demande</a>
+            <a href="/login" class="sidebar-btn logout">Déconnexion</a>
+        </div>
+
+    </div>
+
+    <div class="content">
+        <h1>Mes Demandes de Crédit</h1>
+
+        <table class="styled-table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Montant</th>
+                <th>Statut</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="demande, stat : ${demandes}">
+                <td th:text="${stat.index + 1}">1</td>
+                <td th:text="${demande.date}">2025-01-01</td>
+                <td th:text="${demande.montant}">0</td>
+                <td>
+                    <span th:if="${demande.statut == 'En attente'}" class="badge badge-pending">En attente</span>
+                    <span th:if="${demande.statut == 'Acceptée'}" class="badge badge-success">Acceptée</span>
+                    <span th:if="${demande.statut == 'Refusée'}" class="badge badge-error">Refusée</span>
+                </td>
+                <td>
+                    <a th:href="@{/client/demandes/{id}(id=${demande.id})}" class="btn btn-primary">Suivi</a>
+                    <a th:if="${demande.statut == 'En attente'}"
+                       th:href="@{/client/demandes/supprimer/{id}(id=${demande.id})}"
+                       class="btn btn-danger">Supprimer</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

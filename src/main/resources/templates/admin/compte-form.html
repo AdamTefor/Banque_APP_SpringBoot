@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Créer un compte</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="dashboard">
+  <div class="sidebar">
+    <img src="/images/logo-bankati.png" class="logo" alt="Bankati Logo">
+    <h2>Admin - Bankati</h2>
+
+    <div class="sidebar-buttons">
+      <a href="/admin/dashboard" class="sidebar-btn">Dashboard</a>
+      <a href="/admin/users" class="sidebar-btn">Utilisateurs</a>
+      <a href="/admin/demandes" class="sidebar-btn">Demandes</a>
+      <a href="/admin/demandes/pdf" class="sidebar-btn">Exporter PDF</a>
+      <a href="/login" class="sidebar-btn logout">Déconnexion</a>
+    </div>
+  </div>
+
+  <div class="content">
+    <h1>Créer un compte pour <span th:text="${user.nom}">Utilisateur</span></h1>
+
+    <form th:action="@{${compte.id != null} ? '/admin/comptes/modifier' : '/admin/comptes/enregistrer'}" method="post" th:object="${compte}" class="form-container">
+      <input type="hidden" th:field="*{id}" />
+      <input type="hidden" name="userId" th:value="${user.id}" th:if="${compte.id == null}" />
+
+      <label>Solde :</label>
+      <input type="number" th:field="*{solde}" min="0" required step="0.01" />
+
+      <label>Devise :</label>
+      <input type="text" th:field="*{devise}" required />
+
+      <button type="submit" class="btn btn-success" th:text="${compte.id != null ? 'Modifier' : 'Créer'}"></button>
+    </form>
+
+  </div>
+</div>
+</body>
+</html>

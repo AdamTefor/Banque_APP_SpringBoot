@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Demandes de Crédit</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="dashboard">
+    <div class="sidebar">
+        <img src="/images/logo-1.png" class="logo" alt="Bankati Logo">
+        <h2>Admin - Bankati</h2>
+        <div class="sidebar-buttons">
+            <a href="/admin/dashboard" class="sidebar-btn">Tableau de bord</a>
+            <a href="/admin/users" class="sidebar-btn">Utilisateurs</a>
+            <a href="/admin/demandes" class="sidebar-btn">Demandes</a>
+            <a href="/login" class="sidebar-btn logout">Déconnexion</a>
+        </div>
+
+    </div>
+
+    <div class="content">
+        <h1>Demandes de Crédit</h1>
+
+        <div class="action-bar">
+            <a class="btn btn-primary" href="/admin/demandes/pdf">📄 Exporter en PDF</a>
+        </div>
+
+        <table class="styled-table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Client</th>
+                <th>Email</th>
+                <th>Montant</th>
+                <th>Date</th>
+                <th>Statut</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="demande, stat : ${demandes}">
+                <td th:text="${stat.index + 1}">1</td>
+                <td th:text="${demande.user.nom}">Adam</td>
+                <td th:text="${demande.user.email}">email</td>
+                <td th:text="${demande.montant + ' MAD'}">0</td>
+                <td th:text="${demande.date}">2025-01-01</td>
+                <td>
+                    <span th:if="${demande.statut == 'En attente'}" class="badge badge-pending">En attente</span>
+                    <span th:if="${demande.statut == 'Acceptée'}" class="badge badge-success">Acceptée</span>
+                    <span th:if="${demande.statut == 'Refusée'}" class="badge badge-error">Refusée</span>
+                </td>
+                <td>
+                    <a th:href="@{/admin/demandes/{id}(id=${demande.id})}" class="btn btn-link">Détail</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

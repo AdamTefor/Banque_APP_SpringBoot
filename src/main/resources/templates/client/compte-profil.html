@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mon Compte</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="dashboard">
+    <div class="sidebar">
+        <img src="/images/logo-1.png" class="logo" alt="Bankati Logo">
+        <h2>Client - Bankati</h2>
+        <div class="sidebar-buttons">
+            <a href="/client/dashboard" class="sidebar-btn">Dashboard</a>
+            <a href="/client/compte" class="sidebar-btn">Mon Compte</a>
+            <a href="/client/demandes" class="sidebar-btn">Mes Demandes</a>
+            <a href="/client/demandes/ajouter" class="sidebar-btn">Nouvelle Demande</a>
+            <a href="/login" class="sidebar-btn logout">Déconnexion</a>
+        </div>
+
+    </div>
+
+    <div class="content">
+        <h1>Mon Compte</h1>
+
+        <!-- Si le compte existe -->
+        <div th:if="${compte != null}">
+            <div class="card">
+                <p><strong>Nom :</strong> <span th:text="${user.nom}">Nom</span></p>
+                <p><strong>Email :</strong> <span th:text="${user.email}">Email</span></p>
+                <p><strong>Solde :</strong> <span th:text="${compte.solde}">0</span> <span th:text="${compte.devise}">MAD</span></p>
+            </div>
+
+            <h2>Conversion</h2>
+            <div class="cards">
+                <div class="card">
+                    <h3>EUR</h3>
+                    <p th:text="${EUR + ' €'}">0</p>
+                </div>
+                <div class="card">
+                    <h3>USD</h3>
+                    <p th:text="${USD + ' $'}">0</p>
+                </div>
+                <div class="card">
+                    <h3>GBP</h3>
+                    <p th:text="${GBP + ' £'}">0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Si aucun compte -->
+        <div th:if="${compte == null}" class="error-box">
+            <p class="error-text" th:text="${messageErreur}">Aucun compte</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${user.id == null ? 'Ajouter un utilisateur' : 'Modifier l’utilisateur'}">Utilisateur</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="dashboard">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <img src="/images/logo-1.png" class="logo" alt="Bankati Logo">
+        <h2>Admin - Bankati</h2>
+        <div class="sidebar-buttons">
+            <a href="/admin/dashboard" class="sidebar-btn">Tableau de bord</a>
+            <a href="/admin/users" class="sidebar-btn">Utilisateurs</a>
+            <a href="/admin/demandes" class="sidebar-btn">Demandes</a>
+            <a href="/logout" class="sidebar-btn logout">Déconnexion</a>
+        </div>
+    </div>
+
+    <!-- Contenu -->
+    <div class="content">
+        <h1 th:text="${user.id == null ? 'Ajouter un utilisateur' : 'Modifier l’utilisateur'}"></h1>
+
+        <!-- Formulaire -->
+        <form th:action="@{/admin/users/enregistrer}" method="post"
+              enctype="multipart/form-data" th:object="${user}" class="form-container">
+
+            <input type="hidden" th:field="*{id}" />
+
+            <label for="nom">Nom :</label>
+            <input type="text" id="nom" th:field="*{nom}" placeholder="Nom complet" required>
+
+            <label for="email">Email :</label>
+            <input type="email" id="email" th:field="*{email}" placeholder="exemple@mail.com" required>
+
+            <label for="motDePasse">Mot de passe :</label>
+            <input type="password" id="motDePasse" th:field="*{motDePasse}" placeholder="********" required>
+
+            <label for="role">Rôle :</label>
+            <select id="role" th:field="*{role}" required>
+                <option value="CLIENT">CLIENT</option>
+                <option value="ADMIN">ADMIN</option>
+            </select>
+
+            <label for="imageFile">Photo de profil :</label>
+            <input type="file" id="imageFile" name="imageFile" accept="image/*" />
+
+            <button type="submit" class="btn btn-success">Enregistrer</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

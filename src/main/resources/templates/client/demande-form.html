@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nouvelle Demande de Crédit</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="dashboard">
+    <div class="sidebar">
+        <img src="/images/logo-1.png" class="logo" alt="Bankati Logo">
+        <h2>Client - Bankati</h2>
+        <div class="sidebar-buttons">
+            <a href="/client/dashboard" class="sidebar-btn">Dashboard</a>
+            <a href="/client/compte" class="sidebar-btn">Mon Compte</a>
+            <a href="/client/demandes" class="sidebar-btn">Mes Demandes</a>
+            <a href="/client/demandes/ajouter" class="sidebar-btn">Nouvelle Demande</a>
+            <a href="/login" class="sidebar-btn logout">Déconnexion</a>
+        </div>
+
+    </div>
+
+    <div class="content">
+        <h1>Nouvelle Demande de Crédit</h1>
+
+        <form th:action="@{/client/demandes/ajouter}" method="post" th:object="${demande}" class="form-container">
+            <label for="montant">Montant demandé :</label>
+            <input type="number" id="montant" th:field="*{montant}" placeholder="Entrez un montant" required min="1" step="0.01">
+
+            <button type="submit" class="btn btn-success">Soumettre la demande</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
